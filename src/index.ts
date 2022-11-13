@@ -1,4 +1,4 @@
-import { commands } from "./slash";
+import { commands } from "./slash/";
 import {
 	Client,
 	Collection,
@@ -8,8 +8,7 @@ import {
 	RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js";
 import { REST } from "@discordjs/rest";
-import mongoose from "mongoose";
-import { clientId, token, mongo } from "./config";
+import { clientId, token } from "./config";
 import type {
 	CommandLike,
 	ChatInputCommandAssertedInteraction,
@@ -37,16 +36,10 @@ rest
 	.catch(console.error);
 
 client.once("ready", async () => {
-	if (!mongo) throw Error("No mongo!");
 	if (!client.user) throw Error("Unexpected: client.user is null");
 	client.user.setActivity("/dap", { type: ActivityType.Listening });
 	console.log("Connected to Discord API!");
-	mongoose.connect(mongo, (error) => {
-		if (error) throw error;
-		else console.log("Connected to MongoDB");
-		//client.user.setAvatar("https://media.discordapp.net/attachments/1028766392989794444/1029202069812424764/dapper.png?width=406&height=406");
 	});
-});
 
 client.on("interactionCreate", async (interaction) => {
 	if (!interaction.isChatInputCommand()) return;

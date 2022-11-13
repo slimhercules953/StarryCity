@@ -1,8 +1,5 @@
 import type { CommandLike } from "./command";
 
-import about from "./about";
-import dap from "./dap";
-import leaderboard from "./leaderboard";
-import stats from "./stats";
+import ping from "./ping";
 
-export const commands: CommandLike[] = [about, dap, leaderboard, stats];
+export const commands: CommandLike[] = [ping];
